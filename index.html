@@ -326,7 +326,7 @@
   const VOCAB = [
     { w:"Mitigate", d:"make less severe" },
     { w:"Uphold", d:"support" },
-    { w:"Fortify", d:"provide (a place) with defensive works as protection against attack." },
+    { w:"Fortify", d:"provide (a place) with defensive works as protection against attack.", e:"This ruined hilltop castle was fortified by every ruler from Roman times to the 17th century." },
     { w:"Apprehensions", d:"anxiety or fear that something bad or unpleasant will happen." },
     { w:"Imperative", d:"necessary" },
     { w:"Stringent", d:"(of regulations, requirements, or conditions) strict, precise, and exacting." },
@@ -474,8 +474,13 @@
       hint.className = "hint";
       hint.textContent = it.d;
 
+      const example = document.createElement("div");
+      example.className = "example";
+      example.textContent = it.e;
+
       left.appendChild(word);
       left.appendChild(hint);
+      left.appendChild(example);
 
       const chev = document.createElement("div");
       chev.className = "chev";
@@ -538,7 +543,12 @@
     if (!word) return;
     const def = prompt(`Enter the definition for "${word}":`);
     if (!def) return;
-    DATA.push({ w: word.trim(), d: def.trim() });
+    const example = prompt(`(Optional) Enter an example sentence for "${word}":`);
+    if (example){
+      DATA.push({ w: word.trim(), d: def.trim(), e: example.trim() });
+    } else {
+      DATA.push({ w: word.trim(), d: def.trim() });
+    }
     render();
   });
 
