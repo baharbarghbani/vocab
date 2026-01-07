@@ -303,6 +303,7 @@
         <div class="btnRow" aria-label="Actions">
           <button id="toggleSort" type="button" aria-pressed="false">Sort: A–Z</button>
           <button id="toggleAll" type="button">Expand all</button>
+          <button id="add" type="button">Add</button>
         </div>
 
         <div class="pill" aria-live="polite">
@@ -411,6 +412,7 @@
     count: document.getElementById("count"),
     toggleSort: document.getElementById("toggleSort"),
     toggleAll: document.getElementById("toggleAll"),
+    add: document.getElementById("add")
   };
 
   let sortAZ = true;
@@ -528,6 +530,15 @@
   els.toggleAll.addEventListener("click", () => {
     expanded = !expanded;
     els.toggleAll.textContent = expanded ? "Collapse all" : "Expand all";
+    render();
+  });
+
+  els.add.addEventListener("click", () => {
+    const word = prompt("Enter the new word:");
+    if (!word) return;
+    const def = prompt(`Enter the definition for "${word}":`);
+    if (!def) return;
+    DATA.push({ w: word.trim(), d: def.trim() });
     render();
   });
 
